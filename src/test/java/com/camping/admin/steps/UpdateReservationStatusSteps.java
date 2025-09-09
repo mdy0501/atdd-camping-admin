@@ -1,5 +1,6 @@
 package com.camping.admin.steps;
 
+import com.camping.admin.CommonContext;
 import com.camping.admin.client.ReservationClient;
 import com.camping.admin.dto.ReservationResponse;
 import io.cucumber.java.en.And;

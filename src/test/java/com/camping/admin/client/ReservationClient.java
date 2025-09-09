@@ -22,7 +22,6 @@ public class ReservationClient {
             .extract();
 
         List<ReservationResponse> resList = extracted.body().jsonPath().getList("", ReservationResponse.class);
-        System.out.println("### resList = " + resList);
 
         Optional<ReservationResponse> maybeReservation = resList.stream()
             .filter(r -> r.getId().equals(CommonContext.reservationId))
