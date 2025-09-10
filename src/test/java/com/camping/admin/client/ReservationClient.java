@@ -27,7 +27,7 @@ public class ReservationClient {
             .filter(r -> r.getId().equals(CommonContext.reservationId))
             .findFirst();
 
-        if(maybeReservation.isPresent()) {
+        if (maybeReservation.isPresent()) {
             return maybeReservation.get();
         } else {
             throw new RuntimeException("예약이 존재하지 않습니다.");
