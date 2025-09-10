@@ -2,22 +2,24 @@ package com.camping.admin.hooks;
 
 import com.camping.admin.CommonContext;
 import com.camping.admin.client.AuthClient;
+import com.camping.admin.http.RequestSpecFactory;
 import io.cucumber.java.Before;
-import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
 
 public class Hooks {
     private final AuthClient authClient = new AuthClient();
 
-    @Before("@관리자가_로그인을_한다")
+    @Before(order = 0)
+    public void initBaseSpec() {
+        if (CommonContext.baseSpec == null) {
+            CommonContext.baseSpec = RequestSpecFactory.base();
+        }
+    }
+
+    @Before(value = "@관리자가_로그인을_한다", order = 1)
     public void adminLogin() {
         if (CommonContext.accessToken == null) {
             CommonContext.accessToken = authClient.login("admin", "admin123");
-
-            RestAssured.requestSpecification = new RequestSpecBuilder()
-                .addHeader("Authorization", "Bearer " + CommonContext.accessToken)
-                .setContentType("application/json")
-                .build();
+            CommonContext.requestSpec = RequestSpecFactory.withBearer(CommonContext.baseSpec, CommonContext.accessToken);
         }
     }
 }

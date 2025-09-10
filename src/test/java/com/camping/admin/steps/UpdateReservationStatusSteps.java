@@ -27,10 +27,9 @@ public class UpdateReservationStatusSteps {
     @When("관리자가 예약 상태를 취소했다")
     public void 관리자가예약상태를취소했다() {
         Response response = given().log().all()
-            .contentType("application/json")
-            .header("Authorization", "Bearer " + CommonContext.accessToken)
-            .when().log().all()
+            .spec(CommonContext.requestSpec)
             .body(Map.of("status", "CANCELED"))
+            .when().log().all()
             .patch("admin/reservations/" + CommonContext.reservationId + "/status");
 
         response.then().log().all()
