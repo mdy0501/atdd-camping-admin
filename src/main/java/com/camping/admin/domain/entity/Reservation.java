@@ -60,4 +60,26 @@ public class Reservation {
         this.endDate = endDate;
         this.campsite = campsite;
     }
+
+    public Reservation(String customerName, LocalDate startDate, LocalDate endDate, Campsite campsite, String phoneNumber, LocalDate reservationDate, String confirmationCode) {
+        this.customerName = customerName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.campsite = campsite;
+        this.phoneNumber = phoneNumber;
+        this.reservationDate = reservationDate;
+        this.confirmationCode = confirmationCode;
+    }
+
+    public static Reservation create(
+        String customerName,
+        LocalDate startDate,
+        LocalDate endDate,
+        Campsite campsite,
+        String phoneNumber,
+        LocalDate reservationDate,
+        String confirmationCode
+    ) {
+        return new Reservation(customerName, startDate, endDate, campsite, phoneNumber, reservationDate, confirmationCode);
+    }
 }

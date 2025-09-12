@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.camping.admin.service.ReservationCodeGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,48 +28,21 @@ public class ReservationAdminController {
 
     @PostMapping
     public ResponseEntity<ReservationResponse> createReservation(@RequestBody CreateReservationRequest request) {
-         // Basic null check
-        if (request == null) {
-            throw new RuntimeException("request is null");
-        }
+        request.validate();
+        Campsite campsite = campsiteRepository.findById(request.getCampsiteId())
+                .orElseThrow(() -> new IllegalArgumentException("Cannot find campsite with id: " + request.getCampsiteId()));
+        String confirmationCode = ReservationCodeGenerator.generate();
 
-        String customerName = request.getCustomerName();
-        LocalDate startDate = request.getStartDate();
-        LocalDate endDate = request.getEndDate();
-
-        // Campsite lookup: prefer id then siteNumber
-        Campsite campsite = null;
-        if (request.getCampsiteId() != null) {
-            campsite = campsiteRepository.findById(request.getCampsiteId()).orElse(null);
-        }
-        if (campsite == null && request.getSiteNumber() != null && !request.getSiteNumber().isBlank()) {
-            campsite = campsiteRepository.findBySiteNumber(request.getSiteNumber()).orElse(null);
-        }
-
-        // Basic validations
-        if (campsite == null) {
-            throw new RuntimeException("Invalid campsite");
-        }
-        if (customerName == null || customerName.isBlank()) {
-            throw new RuntimeException("Invalid customer name");
-        }
-        if (startDate == null || endDate == null || !endDate.isAfter(startDate)) {
-            throw new RuntimeException("Invalid dates");
-        }
-
-        // Create and populate Reservation using entity constructor
-        Reservation reservation = new Reservation(customerName, startDate, endDate, campsite);
-
-        // Optional fields
-//        reservation.setPhoneNumber(request.getPhoneNumber());
-//        reservation.setReservationDate(request.getReservationDate());
-        reservation.setConfirmationCode("adfadf");
-
+        Reservation reservation = Reservation.create(
+            request.getCustomerName(),
+            request.getStartDate(),
+            request.getEndDate(),
+            campsite,
+            request.getPhoneNumber(),
+            request.getReservationDate(),
+            confirmationCode
+        );
         Reservation saved = reservationRepository.save(reservation);
-        if (saved == null || saved.getId() == null) {
-            throw new RuntimeException("Failed to create reservation");
-        }
-
         return new ResponseEntity<>(ReservationResponse.from(saved), HttpStatus.CREATED);
     }
 

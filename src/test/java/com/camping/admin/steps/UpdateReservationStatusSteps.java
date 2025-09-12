@@ -28,7 +28,6 @@ public class UpdateReservationStatusSteps {
             LocalDate.now().plusDays(1),
             LocalDate.now().plusDays(2),
             1L,
-            "A-01",
             "010-1234-5678",
             LocalDate.of(2025, 9, 11)
         );
