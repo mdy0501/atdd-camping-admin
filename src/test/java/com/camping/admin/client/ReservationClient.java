@@ -1,16 +1,27 @@
 package com.camping.admin.client;
 
 import com.camping.admin.CommonContext;
+import com.camping.admin.dto.CreateReservationRequest;
 import com.camping.admin.dto.ReservationResponse;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
 import java.util.List;
-import java.util.Optional;
 
 import static io.restassured.RestAssured.given;
 
 public class ReservationClient {
+    public ReservationResponse createReservation(CreateReservationRequest createReservationRequest) {
+        return given().log().all()
+            .spec(CommonContext.requestSpec)
+            .when().log().all()
+            .body(createReservationRequest)
+            .post("admin/reservations")
+            .then().log().all()
+            .statusCode(201)
+            .extract().body().as(ReservationResponse.class);
+    }
+
     public ReservationResponse getReservation(Long reservationId) {
         ExtractableResponse<Response> ex = given()
             .spec(CommonContext.requestSpec)

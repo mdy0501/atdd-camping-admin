@@ -2,6 +2,7 @@ package com.camping.admin.steps;
 
 import com.camping.admin.CommonContext;
 import com.camping.admin.client.ReservationClient;
+import com.camping.admin.dto.CreateReservationRequest;
 import com.camping.admin.dto.ReservationResponse;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -9,6 +10,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -20,8 +22,18 @@ public class UpdateReservationStatusSteps {
 
     @Given("사용자가 예약을 했다")
     public void 사용자가예약을했다() {
-        System.out.println("id가 1L인 예약이 생성되었다.");
-        CommonContext.reservationId = 1L;
+        // TODO: test builder
+        CreateReservationRequest createReservationRequest = new CreateReservationRequest(
+            "홍길동",
+            LocalDate.now().plusDays(1),
+            LocalDate.now().plusDays(2),
+            1L,
+            "A-01",
+            "010-1234-5678",
+            LocalDate.of(2025, 9, 11)
+        );
+        ReservationResponse createdReservation = reservationClient.createReservation(createReservationRequest);
+        CommonContext.reservationId = createdReservation.getId();
     }
 
     @When("관리자가 예약 상태를 취소했다")

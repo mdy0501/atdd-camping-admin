@@ -4,10 +4,12 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@ToString
 @Entity
 @Table(name = "reservations")
 @Getter
@@ -49,6 +51,7 @@ public class Reservation {
         if (this.status == null) {
             this.status = "CONFIRMED";
         }
+        System.out.println("### (Entity) reservation: " + this);
     }
     
     public Reservation(String customerName, LocalDate startDate, LocalDate endDate, Campsite campsite) {
