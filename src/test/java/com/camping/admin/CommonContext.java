@@ -7,4 +7,5 @@ public class CommonContext {
     public static RequestSpecification requestSpec;
     public static String accessToken;
     public static Long reservationId;
+    public static Long invalidReservationId;
 }

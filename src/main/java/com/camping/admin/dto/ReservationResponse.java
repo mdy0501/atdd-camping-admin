@@ -17,6 +17,10 @@ public class ReservationResponse {
     private String campsiteSiteNumber;
     private LocalDate reservationDate;
 
+    public boolean isReservable() {
+        return "CANCELED".equals(this.status);
+    }
+
     public static ReservationResponse from(Reservation reservation) {
         return new ReservationResponse(reservation);
     }

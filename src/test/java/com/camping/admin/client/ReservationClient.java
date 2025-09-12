@@ -7,6 +7,7 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
 import java.util.List;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
@@ -19,6 +20,17 @@ public class ReservationClient {
             .post("admin/reservations")
             .then().log().all()
             .statusCode(201)
+            .extract().body().as(ReservationResponse.class);
+    }
+
+    public ReservationResponse updateStatus(Long reservationId, String status) {
+        return given().log().all()
+            .spec(CommonContext.requestSpec)
+            .when().log().all()
+            .body(Map.of("status", status))
+            .patch("admin/reservations/" + reservationId + "/status")
+            .then().log().all()
+            .statusCode(200)
             .extract().body().as(ReservationResponse.class);
     }
 

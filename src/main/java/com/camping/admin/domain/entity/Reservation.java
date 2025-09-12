@@ -51,7 +51,6 @@ public class Reservation {
         if (this.status == null) {
             this.status = "CONFIRMED";
         }
-        System.out.println("### (Entity) reservation: " + this);
     }
     
     public Reservation(String customerName, LocalDate startDate, LocalDate endDate, Campsite campsite) {
@@ -69,6 +68,17 @@ public class Reservation {
         this.phoneNumber = phoneNumber;
         this.reservationDate = reservationDate;
         this.confirmationCode = confirmationCode;
+    }
+
+    public boolean isReservable() {
+        if(this.status.equals("CONFIRMED")) {
+            return false;
+        }
+        if(this.status.equals("CANCELLED")) {
+            return true;
+        }
+
+        throw new RuntimeException("Invalid reservation status: " + this.status);
     }
 
     public static Reservation create(
