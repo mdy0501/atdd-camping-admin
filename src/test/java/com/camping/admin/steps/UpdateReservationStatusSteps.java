@@ -4,13 +4,13 @@ import com.camping.admin.CommonContext;
 import com.camping.admin.client.ReservationClient;
 import com.camping.admin.dto.CreateReservationRequest;
 import com.camping.admin.dto.ReservationResponse;
+import com.camping.admin.fixture.CreateReservationRequestTestDataBuilder;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -22,15 +22,7 @@ public class UpdateReservationStatusSteps {
 
     @Given("사용자가 예약을 했다")
     public void 사용자가예약을했다() {
-        // TODO: test builder
-        CreateReservationRequest createReservationRequest = new CreateReservationRequest(
-            "홍길동",
-            LocalDate.now().plusDays(1),
-            LocalDate.now().plusDays(2),
-            1L,
-            "010-1234-5678",
-            LocalDate.of(2025, 9, 11)
-        );
+        CreateReservationRequest createReservationRequest = new CreateReservationRequestTestDataBuilder().build();
         ReservationResponse createdReservation = reservationClient.createReservation(createReservationRequest);
         CommonContext.reservationId = createdReservation.getId();
     }
