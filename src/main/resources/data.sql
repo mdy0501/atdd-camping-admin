@@ -23,35 +23,35 @@ insert into products (id, name, stock_quantity, price, product_type) values
 -- Reservations
 insert into reservations (customer_name, start_date, end_date, campsite_id, phone_number, status, reservation_date, confirmation_code, created_at)
 values
-  ('홍길동', current_date, current_date + 1, 1, '010-1111-2222', 'CONFIRMED', current_date, 'ABC123', current_timestamp),
-  ('김철수', current_date + 1, current_date + 2, 2, '010-3333-4444', 'CONFIRMED', current_date, 'XYZ789', current_timestamp),
+  ('홍길동', CURRENT_DATE, DATE_ADD(CURRENT_DATE, INTERVAL 1 DAY), 1, '010-1111-2222', 'CONFIRMED', CURRENT_DATE, 'ABC123', CURRENT_TIMESTAMP),
+  ('김철수', DATE_ADD(CURRENT_DATE, INTERVAL 1 DAY), DATE_ADD(CURRENT_DATE, INTERVAL 2 DAY), 2, '010-3333-4444', 'CONFIRMED', CURRENT_DATE, 'XYZ789', CURRENT_TIMESTAMP),
   -- 최근 한달 예약 더미 데이터
-  ('이영희', DATEADD('DAY', -28, current_date), DATEADD('DAY', -27, current_date), 1, '010-5555-6666', 'CONFIRMED', DATEADD('DAY', -29, current_date), 'R00003', DATEADD('DAY', -29, current_timestamp)),
-  ('박민수', DATEADD('DAY', -25, current_date), DATEADD('DAY', -24, current_date), 2, '010-7777-8888', 'CONFIRMED', DATEADD('DAY', -26, current_date), 'R00004', DATEADD('DAY', -26, current_timestamp)),
-  ('최수정', DATEADD('DAY', -21, current_date), DATEADD('DAY', -19, current_date), 1, '010-9999-0000', 'CONFIRMED', DATEADD('DAY', -22, current_date), 'R00005', DATEADD('DAY', -22, current_timestamp)),
-  ('정하늘', DATEADD('DAY', -18, current_date), DATEADD('DAY', -17, current_date), 2, '010-2222-3333', 'CONFIRMED', DATEADD('DAY', -19, current_date), 'R00006', DATEADD('DAY', -19, current_timestamp)),
-  ('오세훈', DATEADD('DAY', -15, current_date), DATEADD('DAY', -14, current_date), 1, '010-4444-5555', 'CONFIRMED', DATEADD('DAY', -16, current_date), 'R00007', DATEADD('DAY', -16, current_timestamp)),
-  ('유지민', DATEADD('DAY', -12, current_date), DATEADD('DAY', -11, current_date), 2, '010-6666-7777', 'CONFIRMED', DATEADD('DAY', -13, current_date), 'R00008', DATEADD('DAY', -13, current_timestamp)),
-  ('선우진', DATEADD('DAY', -9, current_date), DATEADD('DAY', -8, current_date), 1, '010-1212-3434', 'CONFIRMED', DATEADD('DAY', -10, current_date), 'R00009', DATEADD('DAY', -10, current_timestamp)),
-  ( '배수아', DATEADD('DAY', -6, current_date), DATEADD('DAY', -5, current_date), 2, '010-5656-7878', 'CONFIRMED', DATEADD('DAY', -7, current_date), 'R00010', DATEADD('DAY', -7, current_timestamp)),
-  ( '고다빈', DATEADD('DAY', -3, current_date), DATEADD('DAY', -2, current_date), 1, '010-9090-1010', 'CONFIRMED', DATEADD('DAY', -4, current_date), 'R00011', DATEADD('DAY', -4, current_timestamp)),
-  ( '한도윤', DATEADD('DAY', -1, current_date), current_date, 2, '010-2323-4545', 'CONFIRMED', DATEADD('DAY', -2, current_date), 'R00012', DATEADD('DAY', -2, current_timestamp));
+  ('이영희', DATE_SUB(CURRENT_DATE, INTERVAL 28 DAY), DATE_SUB(CURRENT_DATE, INTERVAL 27 DAY), 1, '010-5555-6666', 'CONFIRMED', DATE_SUB(CURRENT_DATE, INTERVAL 29 DAY), 'R00003', DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 29 DAY)),
+  ('박민수', DATE_SUB(CURRENT_DATE, INTERVAL 25 DAY), DATE_SUB(CURRENT_DATE, INTERVAL 24 DAY), 2, '010-7777-8888', 'CONFIRMED', DATE_SUB(CURRENT_DATE, INTERVAL 26 DAY), 'R00004', DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 26 DAY)),
+  ('최수정', DATE_SUB(CURRENT_DATE, INTERVAL 21 DAY), DATE_SUB(CURRENT_DATE, INTERVAL 19 DAY), 1, '010-9999-0000', 'CONFIRMED', DATE_SUB(CURRENT_DATE, INTERVAL 22 DAY), 'R00005', DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 22 DAY)),
+  ('정하늘', DATE_SUB(CURRENT_DATE, INTERVAL 18 DAY), DATE_SUB(CURRENT_DATE, INTERVAL 17 DAY), 2, '010-2222-3333', 'CONFIRMED', DATE_SUB(CURRENT_DATE, INTERVAL 19 DAY), 'R00006', DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 19 DAY)),
+  ('오세훈', DATE_SUB(CURRENT_DATE, INTERVAL 15 DAY), DATE_SUB(CURRENT_DATE, INTERVAL 14 DAY), 1, '010-4444-5555', 'CONFIRMED', DATE_SUB(CURRENT_DATE, INTERVAL 16 DAY), 'R00007', DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 16 DAY)),
+  ('유지민', DATE_SUB(CURRENT_DATE, INTERVAL 12 DAY), DATE_SUB(CURRENT_DATE, INTERVAL 11 DAY), 2, '010-6666-7777', 'CONFIRMED', DATE_SUB(CURRENT_DATE, INTERVAL 13 DAY), 'R00008', DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 13 DAY)),
+  ('선우진', DATE_SUB(CURRENT_DATE, INTERVAL 9 DAY), DATE_SUB(CURRENT_DATE, INTERVAL 8 DAY), 1, '010-1212-3434', 'CONFIRMED', DATE_SUB(CURRENT_DATE, INTERVAL 10 DAY), 'R00009', DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 10 DAY)),
+  ( '배수아', DATE_SUB(CURRENT_DATE, INTERVAL 6 DAY), DATE_SUB(CURRENT_DATE, INTERVAL 5 DAY), 2, '010-5656-7878', 'CONFIRMED', DATE_SUB(CURRENT_DATE, INTERVAL 7 DAY), 'R00010', DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)),
+  ( '고다빈', DATE_SUB(CURRENT_DATE, INTERVAL 3 DAY), DATE_SUB(CURRENT_DATE, INTERVAL 2 DAY), 1, '010-9090-1010', 'CONFIRMED', DATE_SUB(CURRENT_DATE, INTERVAL 4 DAY), 'R00011', DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 4 DAY)),
+  ( '한도윤', DATE_SUB(CURRENT_DATE, INTERVAL 1 DAY), CURRENT_DATE, 2, '010-2323-4545', 'CONFIRMED', DATE_SUB(CURRENT_DATE, INTERVAL 2 DAY), 'R00012', DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 2 DAY));
 
 -- Sales Records
 insert into sales_records (id, product_id, quantity, total_price, created_at) values
-  (1, 2, 3, 30000.00, DATEADD('DAY', -1, current_timestamp)),
-  (2, 2, 1, 10000.00, current_timestamp),
-  (3, 8, 5, 10000.00, DATEADD('DAY', -7, current_timestamp)),
-  (4, 9, 2, 8000.00, DATEADD('DAY', -15, current_timestamp)),
-  (5, 10, 10, 30000.00, DATEADD('DAY', -25, current_timestamp));
+  (1, 2, 3, 30000.00, DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 1 DAY)),
+  (2, 2, 1, 10000.00, CURRENT_TIMESTAMP),
+  (3, 8, 5, 10000.00, DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)),
+  (4, 9, 2, 8000.00, DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 15 DAY)),
+  (5, 10, 10, 30000.00, DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 25 DAY));
 
 -- Rental Records (연결된 예약과 무관한 워크인 포함)
 insert into rental_records (id, reservation_id, product_id, quantity, is_returned, created_at) values
-  (1, 3, 3, 2, false, DATEADD('DAY', -28, current_timestamp)),
-  (2, 4, 4, 1, true, DATEADD('DAY', -25, current_timestamp)),
-  (3, 5, 5, 3, false, DATEADD('DAY', -21, current_timestamp)),
-  (4, 6, 6, 1, true, DATEADD('DAY', -18, current_timestamp)),
-  (5, 7, 7, 4, false, DATEADD('DAY', -15, current_timestamp)),
-  (6, null, 3, 1, false, DATEADD('DAY', -3, current_timestamp));
+  (1, 3, 3, 2, false, DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 28 DAY)),
+  (2, 4, 4, 1, true, DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 25 DAY)),
+  (3, 5, 5, 3, false, DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 21 DAY)),
+  (4, 6, 6, 1, true, DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 18 DAY)),
+  (5, 7, 7, 4, false, DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 15 DAY)),
+  (6, null, 3, 1, false, DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 3 DAY));
 
 
